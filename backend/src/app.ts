@@ -7,6 +7,8 @@ import { errorHandler, notFound } from './middleware/error.middleware'
 import authRoutes from './routes/auth.routes'
 import walletRoutes from './routes/wallet.routes'
 import transferRoutes from './routes/transfer.routes'
+import productRoutes from './routes/product.routes'
+import platformRoutes from './routes/platform.routes'
 
 const app = express()
 
@@ -22,6 +24,8 @@ app.get('/health', (_req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/wallet', walletRoutes)
 app.use('/api/transfers', transferRoutes)
+app.use('/api/products', productRoutes)
+app.use('/api/platform', platformRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

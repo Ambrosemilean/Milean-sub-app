@@ -79,6 +79,25 @@ The backend now includes Milean Pay internal transfer workflows:
 | GET | `/api/transfers/beneficiaries` | List saved beneficiaries |
 | POST | `/api/transfers/beneficiaries` | Save or update a beneficiary |
 
+## Module 5: Subscriptions, bills, and full module coverage
+
+The backend now includes service-purchase workflows for the remaining Milean Pay modules:
+
+- Product catalog for airtime, data, electricity, cable TV, internet, betting-wallet funding, and education pins.
+- Authenticated purchase endpoint that debits the wallet, writes a ledger transaction, records a bill-payment row, and creates an in-app notification.
+- Bill-payment history endpoint for receipts and customer support.
+- Database models for bill payments, notifications, virtual cards, savings plans, and loan applications so the full app surface has persistence foundations.
+- Platform module registry endpoint that lists implemented, schema-ready, and planned modules for web and Android clients.
+
+### Product and platform API endpoints
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| GET | `/api/products/catalog` | List airtime, data, cable, electricity, internet, betting, and education products |
+| POST | `/api/products/purchase` | Purchase a service from wallet balance |
+| GET | `/api/products/payments` | List bill-payment receipts |
+| GET | `/api/platform/modules` | List Milean Pay application modules and implementation status |
+
 ## Development
 
 ```bash
