@@ -98,6 +98,25 @@ The backend now includes service-purchase workflows for the remaining Milean Pay
 | GET | `/api/products/payments` | List bill-payment receipts |
 | GET | `/api/platform/modules` | List Milean Pay application modules and implementation status |
 
+## Frontend and database additions
+
+The web frontend now includes a richer customer workspace with tabs for module overview, dashboard, services, and database coverage. It uses typed demo data and an API client that maps to the backend authentication, wallet, transfer, and product endpoints.
+
+The database folder now includes:
+
+- `backend/prisma/schema.prisma` as the Prisma source of truth.
+- `backend/prisma/migrations/20260729223000_init_milean_pay/migration.sql` for the initial PostgreSQL schema.
+- `backend/prisma/seeds/demo.sql` with demo users, wallets, transactions, and beneficiaries for local development.
+
+### Database setup
+
+```bash
+cd backend
+npm install
+npx prisma migrate dev
+psql "$DATABASE_URL" -f prisma/seeds/demo.sql
+```
+
 ## Development
 
 ```bash
