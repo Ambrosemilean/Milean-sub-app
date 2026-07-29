@@ -20,6 +20,26 @@ The frontend includes:
 - **Security:** JWT, refresh tokens, OTP, transaction PIN, 2FA, audit logs, and role-based access.
 - **Integrations:** Monnify, Paystack, Flutterwave, VTpass, electricity providers, cable providers, Firebase Cloud Messaging, email, and SMS gateways.
 
+## Module 2: Backend authentication
+
+The backend now includes the Milean Pay authentication foundation:
+
+- Registration with email, phone, BVN/NIN placeholders, referral tracking, password hashing, and sanitized responses.
+- Login by email or phone with access and refresh token generation.
+- Refresh-token rotation with hashed token storage.
+- Protected profile endpoint using Bearer-token middleware.
+- Zod validation, centralized error handling, Helmet, CORS, and request logging.
+- Prisma user schema prepared for PostgreSQL and future KYC, wallet, and transaction modules.
+
+### Backend development
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run build
+```
+
 ## Development
 
 ```bash
