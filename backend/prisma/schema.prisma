@@ -14,6 +14,35 @@ enum KycStatus {
   REJECTED
 }
 
+enum WalletStatus {
+  ACTIVE
+  FROZEN
+  CLOSED
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REVERSED
+}
+
+enum TransactionChannel {
+  WALLET_DEPOSIT
+  WALLET_WITHDRAWAL
+  INTERNAL_TRANSFER
+  BANK_TRANSFER
+  AIRTIME
+  DATA
+  ELECTRICITY
+  CABLE_TV
+}
+
 model User {
   id                 String   @id @default(cuid())
   fullName           String
@@ -31,7 +60,48 @@ model User {
   refreshTokenHash   String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
+  wallet             Wallet?
+  transactions       Transaction[]
 
   @@index([email])
   @@index([phone])
+}
+
+model Wallet {
+  id            String       @id @default(cuid())
+  userId        String       @unique
+  accountNumber String       @unique
+  currency      String       @default("NGN")
+  balance       Decimal      @default(0.00) @db.Decimal(18, 2)
+  ledgerBalance Decimal      @default(0.00) @db.Decimal(18, 2)
+  status        WalletStatus @default(ACTIVE)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions  Transaction[]
+
+  @@index([accountNumber])
+}
+
+model Transaction {
+  id               String             @id @default(cuid())
+  userId           String
+  walletId         String
+  reference        String             @unique
+  type             TransactionType
+  channel          TransactionChannel
+  status           TransactionStatus  @default(PENDING)
+  amount           Decimal            @db.Decimal(18, 2)
+  balanceBefore    Decimal            @db.Decimal(18, 2)
+  balanceAfter     Decimal            @db.Decimal(18, 2)
+  narration        String
+  metadata         Json?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wallet           Wallet             @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([walletId, createdAt])
+  @@index([reference])
 }

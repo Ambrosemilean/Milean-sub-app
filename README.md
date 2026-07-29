@@ -40,6 +40,26 @@ cp .env.example .env
 npm run build
 ```
 
+## Module 3: Wallet system
+
+The backend now includes the Milean Pay wallet foundation:
+
+- Automatic NGN wallet creation during registration.
+- Unique customer wallet account numbers derived from the registered phone number.
+- Protected wallet balance endpoint for authenticated users.
+- Wallet funding and withdrawal endpoints with balance checks.
+- Ledger-style transaction records with references, before/after balances, status, channel, and pagination.
+- Prisma wallet and transaction models ready for bank transfers, airtime, data, electricity, and cable subscription debits.
+
+### Wallet API endpoints
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| GET | `/api/wallet` | Get the authenticated user wallet |
+| POST | `/api/wallet/fund` | Credit the user wallet |
+| POST | `/api/wallet/withdraw` | Debit the user wallet after balance validation |
+| GET | `/api/wallet/transactions` | List paginated wallet transactions |
+
 ## Development
 
 ```bash

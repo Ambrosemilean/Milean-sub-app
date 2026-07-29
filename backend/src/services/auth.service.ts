@@ -3,6 +3,7 @@ import { HttpError } from '../utils/httpError'
 import { hashSecret, verifySecret } from '../utils/password'
 import { sanitizeUser } from '../utils/sanitizeUser'
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from '../utils/tokens'
+import { createWalletForUser } from './wallet.service'
 
 export type RegisterInput = {
   fullName: string
@@ -68,10 +69,12 @@ export async function register(input: RegisterInput) {
     },
   })
 
+  const wallet = await createWalletForUser(user.id, user.phone)
   const tokens = await buildTokenResponse(user.id, user.email)
 
   return {
     user: sanitizeUser(user),
+    wallet,
     ...tokens,
   }
 }
