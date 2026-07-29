@@ -60,6 +60,25 @@ The backend now includes the Milean Pay wallet foundation:
 | POST | `/api/wallet/withdraw` | Debit the user wallet after balance validation |
 | GET | `/api/wallet/transactions` | List paginated wallet transactions |
 
+## Module 4: Internal transfers and beneficiaries
+
+The backend now includes Milean Pay internal transfer workflows:
+
+- Resolve a Milean Pay account number before sending money.
+- Transfer funds from one active wallet to another active wallet.
+- Write paired debit and credit ledger transactions with shared transfer references.
+- Reject self-transfers, inactive wallets, missing recipients, and insufficient balances.
+- Save and list beneficiaries for faster repeat transfers.
+
+### Transfer API endpoints
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| GET | `/api/transfers/resolve/:accountNumber` | Resolve a Milean Pay recipient account |
+| POST | `/api/transfers/internal` | Send money to another Milean Pay wallet |
+| GET | `/api/transfers/beneficiaries` | List saved beneficiaries |
+| POST | `/api/transfers/beneficiaries` | Save or update a beneficiary |
+
 ## Development
 
 ```bash

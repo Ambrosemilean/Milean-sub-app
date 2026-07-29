@@ -6,6 +6,7 @@ import { env } from './config/env'
 import { errorHandler, notFound } from './middleware/error.middleware'
 import authRoutes from './routes/auth.routes'
 import walletRoutes from './routes/wallet.routes'
+import transferRoutes from './routes/transfer.routes'
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.get('/health', (_req, res) => {
 
 app.use('/api/auth', authRoutes)
 app.use('/api/wallet', walletRoutes)
+app.use('/api/transfers', transferRoutes)
 
 app.use(notFound)
 app.use(errorHandler)

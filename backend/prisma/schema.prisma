@@ -62,6 +62,7 @@ model User {
   updatedAt          DateTime @updatedAt
   wallet             Wallet?
   transactions       Transaction[]
+  beneficiaries      Beneficiary[]
 
   @@index([email])
   @@index([phone])
@@ -81,6 +82,21 @@ model Wallet {
   transactions  Transaction[]
 
   @@index([accountNumber])
+}
+
+model Beneficiary {
+  id            String   @id @default(cuid())
+  userId        String
+  accountNumber String
+  accountName   String
+  bankName      String   @default("Milean Pay")
+  nickname      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, accountNumber])
+  @@index([userId])
 }
 
 model Transaction {
